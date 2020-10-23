@@ -69,18 +69,26 @@ public class BricksSpawner : MonoBehaviour
     {
         int index = Random.Range(0, bricks.Length);
         Brick brick = Instantiate(bricks[index], spawnPosition, Quaternion.identity);
-        brick.HealthPoints = rowsSpawned;
+
+        int hard = 0;
+
+        if (Random.value < 0.3 + rowsSpawned / 1000f)
+        {
+            hard = Random.Range(0, rowsSpawned) + (int) Mathf.Pow(rowsSpawned / 10, 2);
+        }
+
+        brick.HealthPoints = rowsSpawned + hard;
         return brick;
     }
 
-    public void OmitBricks(bool spawnNewRow)
+    public void OmitBricks(bool spawnNewRowOfBricks)
     {
         foreach (Brick brick in spawnedBricks)
         {
             brick.transform.position -= Vector3.up * bricksDiameter;
         }
 
-        if (spawnNewRow)
+        if (spawnNewRowOfBricks)
         {
             SpawnRowOfBricks();
         }
