@@ -29,6 +29,8 @@ public class BricksSpawner : MonoBehaviour
     }
     public void SpawnRowOfBricks()
     {
+        rowsSpawned++;
+
         float spawnChance = Random.Range(1f / 7f, 6f / 7f);
         List<Brick> rowOfBricks = new List<Brick>();
 
@@ -38,6 +40,7 @@ public class BricksSpawner : MonoBehaviour
             {
                 Vector3 spawnPosition = transform.position + Vector3.right * i * bricksDiameter;
                 Brick brick = SpawnBrick(spawnPosition);
+                
                 rowOfBricks.Add(brick);
             }
         }
@@ -66,10 +69,11 @@ public class BricksSpawner : MonoBehaviour
     {
         int index = Random.Range(0, bricks.Length);
         Brick brick = Instantiate(bricks[index], spawnPosition, Quaternion.identity);
+        brick.HealthPoints = rowsSpawned;
         return brick;
     }
 
-    private void OmitBricks(bool spawnNewRow)
+    public void OmitBricks(bool spawnNewRow)
     {
         foreach (Brick brick in spawnedBricks)
         {

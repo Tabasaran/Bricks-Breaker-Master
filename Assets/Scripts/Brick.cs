@@ -1,18 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class Brick : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public int HealthPoints { set; get; }
+    private TextMeshPro healthPointsCount;
+    private void Start()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        healthPointsCount = GetComponentInChildren<TextMeshPro>();
+        healthPointsCount.text = HealthPoints.ToString();
     }
 }
